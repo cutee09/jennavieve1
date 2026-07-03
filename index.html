@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Love Website ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{background:pink;min-height:100vh;overflow:hidden;color:#fff;}
+
+    /* Falling hearts */
+    .heart{position:fixed;top:-10px;color:red;font-size:24px;animation:fall 5s linear infinite;}
+    @keyframes fall{to{transform:translateY(110vh);}}
+
+    .page{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px;}
+    .active{display:flex;}
+
+    h1,h2{font-family:'Great Vibes',cursive;margin-bottom:20px;}
+
+    .card{
+      background:rgba(255,255,255,0.25);
+      backdrop-filter:blur(10px);
+      border-radius:20px;
+      padding:30px;
+      width:90%;
+      max-width:450px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      color:#ff2f85;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      margin-top:10px;
+      text-align:center;
+      color:#ff2f85;
+    }
+
+    button{
+      margin-top:15px;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:#ff2f85;
+      color:#fff;
+      cursor:pointer;
+      transition:0.3s;
+      width:100%;
+    }
+    button:hover{transform:scale(1.05);background:#e01b70;}
+
+    .menu-buttons{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px;}
+    .content-box{margin-top:20px;background:#ffd6e8;padding:20px;border-radius:15px;display:none;color:#ff2f85;opacity:0;transform:translateY(20px);transition:all 0.6s ease;}
+    .content-box.show{opacity:1;transform:translateY(0);}
+
+    .note{background:#ffcfe3;padding:10px;margin:8px 0;border-radius:10px;font-weight:600;}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:15px;}
+    .gallery img{width:100%;height:120px;object-fit:cover;border-radius:12px;}
+
+    /* Animation for welcome text */
+    .fade-in{animation:fadeIn 3s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    /* Game */
+    #gameArea{margin-top:20px;}
+    .game-heart{font-size:40px;color:red;cursor:pointer;}
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div class="page active" id="loginPage">
+    <div class="card">
+      <h1>Secret Love Website ❤️</h1>
+      <div style="font-size:60px;">❤️</div>
+      <input type="text" id="username" placeholder="Enter Username">
+      <input type="password" id="password" placeholder="Enter Password">
+      <button onclick="checkLogin()">Enter</button>
+      <p style="margin-top:10px;">Only for my sayang 💌</p>
+    </div>
+  </div>
+
+  <!-- WELCOME PAGE -->
+  <div class="page" id="welcomePage">
+    <h1 class="fade-in" style="font-size:3rem;">Welcome My Love ❤️<br>Enjoy Your Stay</h1>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <div class="page" id="mainPage">
+    <div class="card">
+      <h1>For You ❤️</h1>
+      <div class="menu-buttons">
+        <button onclick="showSection('letter')">Love Letter 💌</button>
+        <button onclick="showSection('notes')">Notes 📝</button>
+        <button onclick="showSection('gallery')">Gallery 🌸</button>
+        <button onclick="showSection('game')">Game 🎮</button>
+      </div>
+
+      <!-- LOVE LETTER -->
+      <div class="content-box" id="letter">
+        <h2>Love Letter 💌</h2>
+        <p>Sayang… baby tahu sayang tengah merajuk sekarang 😔💔 Baby tak nak paksa apa-apa, cuma baby harap sayang baca ni sampai habis perlahan-lahan ya… sebab setiap ayat ni datang dari hati baby yang betul-betul rindu sayang 🥺🤍 Kalau baby ada buat silap, baby minta maaf sangat-sangat… bukan niat langsung nak lukakan hati sayang, cuma kadang baby sendiri tak sedar apa yang buat sayang terasa 😢</p>
+      </div>
+
+      <!-- NOTES -->
+      <div class="content-box" id="notes">
+        <h2>Little Notes ❤️</h2>
+        <div class="note">Take care okay sayang 💖</div>
+        <div class="note">Eat on time please 🍓</div>
+        <div class="note">You are mine... always ❤️</div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="content-box" id="gallery">
+        <h2>Gallery 🌸</h2>
+        <div class="gallery">
+          <img src="yayang 1.jpeg" alt="flower">
+          <img src="yayang 2.jpeg" alt="flower">
+          <img src="yayang 3.jpeg" alt="flower">
+          <img src="yayang 4.jpeg" alt="flower">
+        </div>
+      </div>
+
+      <!-- GAME -->
+      <div class="content-box" id="game">
+        <h2>Mini Game 🎮</h2>
+        <p>Click the heart to score points!</p>
+        <div id="gameArea">
+          <span class="game-heart" onclick="scorePoint()">❤️</span>
+          <p id="score">Score: 0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkLogin(){
+      const user=document.getElementById('username').value;
+      const pass=document.getElementById('password').value;
+      if(user==='jennavieve' && pass==='051009'){
+        document.getElementById('loginPage').classList.remove('active');
+        document.getElementById('welcomePage').classList.add('active');
+        setTimeout(()=>{
+          document.getElementById('welcomePage').classList.remove('active');
+          document.getElementById('mainPage').classList.add('active');
+        },3500);
+      }else{
+        alert('Wrong username or password 💔');
+      }
+    }
+
+    function showSection(id){
+      document.querySelectorAll('.content-box').forEach(sec=>{
+        sec.classList.remove('show');
+        sec.style.display='none';
+      });
+      const section=document.getElementById(id);
+      section.style.display='block';
+      setTimeout(()=>section.classList.add('show'),50);
+    }
+
+    let score=0;
+    function scorePoint(){
+      score++;
+      document.getElementById('score').innerText="Score: "+score;
+    }
+
+    function createHeart(){
+      const heart=document.createElement('div');
+      heart.className='heart';
+      heart.innerText='❤️';
+      heart.style.left=Math.random()*100+'vw';
+      heart.style.animationDuration=(3+Math.random()*2)+'s';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),5000);
+    }
+    setInterval(createHeart,500);
+  </script>
+</body>
+</html>
